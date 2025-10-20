@@ -29,11 +29,11 @@ if (started) {
 }
 clockRef.textContent = msToHMS(timeElapsed)
 
-
+let interval
 function onStart() {
     Time.lastTickTime = Date.now()
     setTimestate(true)
-    const interval = setInterval(() => {
+    interval = setInterval(() => {
         Time.setDeltaTime()
         timeElapsed += Time.deltaTime
         clockRef.textContent = msToHMS(timeElapsed)
@@ -41,17 +41,23 @@ function onStart() {
         localStorage.setItem(timeElapsedKey, timeElapsed.toString())
     }, 100)
 
-    function onStop() {
-        setTimestate(false)
-        clearInterval(interval)
-        timerBtnRef.onclick = onStart
-        timerBtnTextRef.textContent = 'Start'
-    }
-
     timerBtnRef.onclick = onStop
     timerBtnTextRef.textContent = 'Stop'
 }
 
+function onStop() {
+    setTimestate(false)
+    clearInterval(interval)
+    timerBtnRef.onclick = onStart
+    timerBtnTextRef.textContent = 'Start'
+}
+
+function onReset() {
+    timeElapsed = 0
+    localStorage.setItem(timeElapsedKey, 0)
+    clockRef.textContent = msToHMS(0)
+    onStop()
+}
 
 function msToHMS(milliseconds) {
     // Calculate hours

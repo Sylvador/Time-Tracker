@@ -3,13 +3,18 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="null.css" />
-        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="./styles/null.css" />
+        <link rel="stylesheet" href="./styles/style.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
             href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
             rel="stylesheet"
+        />
+        <link
+            rel="shortcut icon"
+            href="./images/TimeWarp.png"
+            type="image/x-icon"
         />
         <title>Time Tracker</title>
     </head>
@@ -18,10 +23,13 @@
             <div class="clock__container">
                 <div id="clock-time" class="clock__timer"></div>
                 <button id="timer-btn" class="btn">
-                    <span> Start </span>
+                    <span>Start</span>
+                </button>
+                <button onclick="onReset()" id="reset-btn" class="btn">
+                    <span>Reset</span>
                 </button>
             </div>
         </main>
     </body>
-    <script src="clock.js"></script>
+    <script src="./clock.js"></script>
 </html>
