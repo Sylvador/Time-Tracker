@@ -1,3 +1,5 @@
+const INTERVAL = 1000
+
 class Time {
     static deltaTime = 0;
     static lastTickTime = Date.now();
@@ -39,7 +41,7 @@ function onStart() {
         clockRef.textContent = msToHMS(timeElapsed)
         localStorage.setItem(lastTimestampKey, Time.lastTickTime.toString())
         localStorage.setItem(timeElapsedKey, timeElapsed.toString())
-    }, 100)
+    }, INTERVAL)
 
     timerBtnRef.onclick = onStop
     timerBtnTextRef.textContent = 'Stop'
