@@ -21,6 +21,8 @@ const timerBtnTextRef = timerBtnRef.childNodes[1]
 
 let timeElapsed = localStorage.getItem(timeElapsedKey)
 timeElapsed = timeElapsed ? +timeElapsed : 0
+let interval
+
 const started = getTimestate()
 if (started) {
     const lastTimestamp = +getItemFromStorage(lastTimestampKey)
@@ -31,7 +33,6 @@ if (started) {
 }
 clockRef.textContent = msToHMS(timeElapsed)
 
-let interval
 function onStart() {
     Time.lastTickTime = Date.now()
     setTimestate(true)
