@@ -11,6 +11,11 @@ class Time {
     }
 }
 
+class TimeEntry {
+    start
+    end
+}
+
 const lastTimestampKey = 'timeTracker.lastTimestamp'
 const timeElapsedKey = 'timeTracker.timeElapsed'
 const timeStateKey = 'timeTracker.state'
@@ -37,11 +42,7 @@ function onStart() {
     Time.lastTickTime = Date.now()
     setTimestate(true)
     interval = setInterval(() => {
-        Time.setDeltaTime()
-        timeElapsed += Time.deltaTime
-        clockRef.textContent = msToHMS(timeElapsed)
-        localStorage.setItem(lastTimestampKey, Time.lastTickTime.toString())
-        localStorage.setItem(timeElapsedKey, timeElapsed.toString())
+        onTick()
     }, INTERVAL)
 
     timerBtnRef.onclick = onStop
@@ -107,4 +108,12 @@ function getItemFromStorage(key) {
     if (item) {
         return JSON.parse(item)
     }
+}
+
+function onTick() {
+    Time.setDeltaTime()
+    timeElapsed += Time.deltaTime
+    clockRef.textContent = msToHMS(timeElapsed)
+    localStorage.setItem(lastTimestampKey, Time.lastTickTime.toString())
+    localStorage.setItem(timeElapsedKey, timeElapsed.toString())
 }
