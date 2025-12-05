@@ -50,10 +50,11 @@ function onStart() {
     timerBtnTextRef.textContent = 'Stop'
 }
 
-function updateTime(timeElapsed) {
-    clockRef.textContent = msToHMS(timeElapsed);
+function updateTime(newTimeElapsed) {
+    clockRef.textContent = msToHMS(newTimeElapsed);
     localStorage.setItem(lastTimestampKey, Time.lastTickTime.toString());
-    localStorage.setItem(timeElapsedKey, timeElapsed.toString());
+    localStorage.setItem(timeElapsedKey, newTimeElapsed.toString());
+    timeElapsed = newTimeElapsed
 }
 
 function onStop() {
