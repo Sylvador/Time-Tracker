@@ -21,12 +21,16 @@
     <body>
         <main>
             <div class="clock__container">
-                <div id="clock-time" class="clock__timer"></div>
+                <div id="clock-time" class="clock__timer" state="active"></div>
+                <input id="edit-input" class="clock__edit" state="inactive" />
                 <button id="timer-btn" class="btn">
                     <span>Start</span>
                 </button>
                 <button onclick="onReset()" id="reset-btn" class="btn">
                     <span>Reset</span>
+                </button>
+                <button onclick="onEdit()" id="edit-btn" class="btn">
+                    <span>Edit</span>
                 </button>
             </div>
         </main>

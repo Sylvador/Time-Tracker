@@ -16,6 +16,10 @@ const timeElapsedKey = 'timeTracker.timeElapsed'
 const timeStateKey = 'timeTracker.state'
 
 const clockRef = document.getElementById('clock-time')
+
+const editInputRef = document.getElementById('edit-input')
+const editBtnRef = document.getElementById('edit-btn')
+
 const timerBtnRef = document.getElementById('timer-btn')
 const timerBtnTextRef = timerBtnRef.childNodes[1]
 
@@ -39,13 +43,17 @@ function onStart() {
     interval = setInterval(() => {
         Time.setDeltaTime()
         timeElapsed += Time.deltaTime
-        clockRef.textContent = msToHMS(timeElapsed)
-        localStorage.setItem(lastTimestampKey, Time.lastTickTime.toString())
-        localStorage.setItem(timeElapsedKey, timeElapsed.toString())
+        updateTime(timeElapsed);
     }, INTERVAL)
 
     timerBtnRef.onclick = onStop
     timerBtnTextRef.textContent = 'Stop'
+}
+
+function updateTime(timeElapsed) {
+    clockRef.textContent = msToHMS(timeElapsed);
+    localStorage.setItem(lastTimestampKey, Time.lastTickTime.toString());
+    localStorage.setItem(timeElapsedKey, timeElapsed.toString());
 }
 
 function onStop() {
@@ -62,6 +70,28 @@ function onReset() {
     onStop()
 }
 
+function onEdit() {
+    const state = editInputRef.getAttribute('state')
+    if (state === 'inactive') {
+        if (getTimestate()) {
+            onStop()
+        }
+        clockRef.setAttribute('state', 'inactive')
+        editInputRef.value = clockRef.textContent
+        editInputRef.setAttribute('state', 'active')
+        editBtnRef.childNodes[1].textContent = 'Save'
+    } else {
+        editInputRef.setAttribute('state', 'inactive')
+        clockRef.setAttribute('state', 'active')
+        const time = hmsToMM(editInputRef.value)
+        updateTime(time)
+        editBtnRef.childNodes[1].textContent = 'Edit'
+    }
+}
+
+/**
+ * @param {number} milliseconds 
+ */
 function msToHMS(milliseconds) {
     // Calculate hours
     const hours = Math.floor(milliseconds / (1000 * 60 * 60));
@@ -84,6 +114,21 @@ function msToHMS(milliseconds) {
     const formattedSeconds = String(seconds).padStart(2, '0');
 
     return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+}
+
+/**
+ * @param {string} timeStr 
+ */
+function hmsToMM(timeStr) {
+    const [hoursStr, minsStr, secsStr] = timeStr.split(':')
+
+    const hours = parseInt(hoursStr)
+    const mins = parseInt(minsStr)
+    const secs = parseInt(secsStr)
+
+    const time = (hours * 60 * 60 * 1000) + (mins * 60 * 1000) + (secs * 1000)
+
+    return time
 }
 
 /**

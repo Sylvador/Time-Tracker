@@ -29,6 +29,20 @@ main {
     text-align: center;
 }
 
+.clock__timer[state='inactive'] {
+    display: none;
+}
+
+.clock__edit {
+    font-weight: inherit;
+    font-style: inherit;
+    text-align: center;
+}
+
+.clock__edit[state='inactive'] {
+    display: none;
+}
+
 .btn {
     --fancy-button-gradient-0: #8d49fd;
     --fancy-button-gradient-50: #7f56f3;
