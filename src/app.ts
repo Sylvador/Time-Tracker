@@ -12,6 +12,10 @@ const clockRef = document.getElementById('clock-time');
 
 const editInputRef = document.getElementById('edit-input');
 const editBtnRef = document.getElementById('edit-btn');
+editBtnRef.onclick = onEdit;
+
+const resetBtnRef = document.getElementById('reset-btn');
+resetBtnRef.onclick = onReset;
 
 const timerBtnRef = document.getElementById('timer-btn');
 const timerBtnTextRef = timerBtnRef.childNodes[1];
